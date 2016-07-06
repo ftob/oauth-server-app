@@ -1,6 +1,7 @@
 FROM php:7.0-fpm
 MAINTAINER Nikita Volkov <litebackend@gmail.com>
 
+RUN apt-get clean
 RUN apt-get update
 
 
@@ -33,6 +34,7 @@ RUN docker-php-ext-install mcrypt
 
 # Install PDO
 RUN docker-php-ext-install pdo
+
 
 RUN apt-get install -y libpq-dev
 RUN docker-php-ext-install pdo_pgsql
