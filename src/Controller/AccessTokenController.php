@@ -27,7 +27,6 @@ class AccessTokenController extends Controller
         $server = $this->getServer();
         $response = new Response();
 
-
         try {
             // Try to respond to the request
             return $server->respondToAccessTokenRequest($request, $response);
