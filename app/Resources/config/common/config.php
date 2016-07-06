@@ -7,13 +7,27 @@ $loader->load(__DIR__ . '/parameters.php');
 
 /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
 $container->setParameter('locale', 'en');
-
+$container->loadFromExtension(
+    'snc_redis',
+    [
+        'clients' => [
+            'default' => [
+                'type' => 'predis',
+                'alias' => 'default',
+                'dsn' => 'redis://redis/0'
+            ]
+        ],
+        'session' => [
+            'client' => 'default'
+        ]
+    ]
+);
 $container->loadFromExtension(
     'framework',
     [
         'secret' => '%secret%',
         'router' => [
-            'resource' => '%kernel.root_dir%/Resources/config/common/routing.php',
+            'resource' => '%kernel.root_dir%/Resources/config/common/routes.php',
         ],
         'session' => [
             'handler_id' => 'snc_redis.session.handler'
@@ -30,22 +44,13 @@ $container->loadFromExtension(
             'default_connection' => 'default',
             'connections'		 => [
                 'default'	 => [
-                    'driver'	 => 'pdo_mysql',
+                    'driver'	 => 'pdo_pgsql',
                     'host'		 => '%database_host%',
                     'port'		 => '%database_port%',
                     'dbname'	 => '%database_database%',
                     'user'		 => '%database_username%',
                     'password'	 => '%database_password%',
                     'charset'	 => '%database_charset%'
-                ],
-                'analytics'	 => [
-                    'driver'	 => 'pdo_mysql',
-                    'host'		 => '%analytics_host%',
-                    'port'		 => '%analytics_port%',
-                    'dbname'	 => '%analytics_database%',
-                    'user'		 => '%analytics_username%',
-                    'password'	 => '%analytics_password%',
-                    'charset'	 => '%analytics_charset%'
                 ]
             ]
         ],
