@@ -42,6 +42,16 @@ RUN docker-php-ext-install pdo_pgsql
 RUN apt-get install -y unzip
 WORKDIR /root
 
+COPY phpredis-2.2.7.zip phpredis-2.2.7.zip
+RUN unzip phpredis-2.2.7.zip
+WORKDIR phpredis-2.2.7
+RUN phpize
+RUN ./configure
+RUN make && make install
+#RUN cp /root/phpredis-2.2.7/modules/redis.so /usr/local/lib/php/extensions/no-debug-non-zts-20151012/
+RUN echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+
+
 
 # Install XSL
 RUN apt-get install -y libxslt-dev
