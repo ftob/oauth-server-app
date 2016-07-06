@@ -1,0 +1,41 @@
+
+
+db:
+  container_name: oauth_db
+  build: ./docker/db/
+  stdin_open: true
+  tty: true
+  ports:
+    - "5432:5432"
+  environment:
+    POSTGRES_DB: "oauth"
+    POSTGRES_USER: "oauth"
+    POSTGRES_PASSWORD: "oauth"
+
+
+php:
+  container_name: oauth_php
+  build: ./docker/php/
+  tty: true
+  stdin_open: true
+  volumes:
+    - .:/var/www/
+  ports:
+    - "9000:9000"
+    - "9090:9090"
+  links:
+    - db
+
+nginx:
+  container_name: oauth_nginx
+  build: ./docker/nginx
+  tty: true
+  stdin_open: true
+  ports:
+    - "80:80"
+    - "443:443"
+  volumes:
+    - .:/var/www/
+  links:
+    - php
+
