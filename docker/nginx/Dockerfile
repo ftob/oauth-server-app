@@ -1,4 +1,4 @@
-FROM nginx
+FROM nginx:latest
 MAINTAINER Nikita Volkov <litebackend@gmail.com>
 
 RUN rm /etc/nginx/nginx.conf /etc/nginx/mime.types
