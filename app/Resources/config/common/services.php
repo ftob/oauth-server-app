@@ -2,28 +2,28 @@
 use Symfony\Component\DependencyInjection\Definition;
 use Symfony\Component\DependencyInjection\Reference;
 
-$container->setDefinition('repository.client', new Definition(\Doctrine\ORM\EntityRepository::class, []))
-    ->setFactory([new Reference('octrine.orm.entity_manager'), 'getRepository'])
+$container->setDefinition('repository.client', new Definition(\Ftob\OauthServerApp\Repositories\ClientRepository::class))
+    ->setFactory([new Reference('doctrine.orm.entity_manager'), 'getRepository'])
     ->setArguments([\Ftob\OauthServerApp\Entity\Client::class]);
 
-$container->setDefinition('repository.access_token', new Definition(\Doctrine\ORM\EntityRepository::class, []))
-    ->setFactory([new Reference('octrine.orm.entity_manager'), 'getRepository'])
+$container->setDefinition('repository.access_token', new Definition(\Ftob\OauthServerApp\Repositories\AccessTokenRepository::class))
+    ->setFactory([new Reference('doctrine'), 'getRepository'])
     ->setArguments([\Ftob\OauthServerApp\Entity\AccessToken::class]);
 
-$container->setDefinition('repository.auth_code', new Definition(\Doctrine\ORM\EntityRepository::class, []))
-    ->setFactory([new Reference('octrine.orm.entity_manager'), 'getRepository'])
+$container->setDefinition('repository.auth_code', new Definition(\Ftob\OauthServerApp\Repositories\AuthCodeRepository::class, []))
+    ->setFactory([new Reference('doctrine.orm.entity_manager'), 'getRepository'])
     ->setArguments([\Ftob\OauthServerApp\Entity\AuthCode::class]);
 
-$container->setDefinition('repository.refresh_token', new Definition(\Doctrine\ORM\EntityRepository::class, []))
-    ->setFactory([new Reference('octrine.orm.entity_manager'), 'getRepository'])
+$container->setDefinition('repository.refresh_token', new Definition(\Ftob\OauthServerApp\Repositories\RefreshTokenRepository::class, []))
+    ->setFactory([new Reference('doctrine.orm.entity_manager'), 'getRepository'])
     ->setArguments([\Ftob\OauthServerApp\Entity\RefreshToken::class]);
 
-$container->setDefinition('repository.scope', new Definition(\Doctrine\ORM\EntityRepository::class, []))
-    ->setFactory([new Reference('octrine.orm.entity_manager'), 'getRepository'])
+$container->setDefinition('repository.scope', new Definition(\Ftob\OauthServerApp\Repositories\ScopeRepository::class, []))
+    ->setFactory([new Reference('doctrine.orm.entity_manager'), 'getRepository'])
     ->setArguments([\Ftob\OauthServerApp\Entity\Scope::class]);
 
-$container->setDefinition('repository.user', new Definition(\Doctrine\ORM\EntityRepository::class, []))
-    ->setFactory([new Reference('octrine.orm.entity_manager'), 'getRepository'])
+$container->setDefinition('repository.user', new Definition(\Ftob\OauthServerApp\Repositories\UserRepository::class, []))
+    ->setFactory([new Reference('doctrine.orm.entity_manager'), 'getRepository'])
     ->setArguments([\Ftob\OauthServerApp\Entity\User::class]);
 
 $container->setDefinition('service.server', new Definition(\League\OAuth2\Server\AuthorizationServer::class, [

@@ -30,6 +30,9 @@
   "autoload": {
     "files": ["app/AppKernel.php", "app/AppCache.php"],
     "psr-4": { "Ftob\\OauthServerApp\\": "src\\" }
+  },
+  "autoload-dev": {
+    "psr-4": { "Ftob\\OauthServerApp\\Tests\\": "tests\\" }
   }
 
 }

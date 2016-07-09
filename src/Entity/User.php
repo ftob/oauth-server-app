@@ -1,19 +1,50 @@
 <?php
 namespace Ftob\OauthServerApp\Entity;
 
-use League\OAuth2\Server\Entities\Traits\EntityTrait;
+use Doctrine\Common\Collections\ArrayCollection;
+use  Ftob\OauthServerApp\Entity\Traits\EntityTrait;
 use League\OAuth2\Server\Entities\UserEntityInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
 
+
+/**
+ * @ORM\Entity(repositoryClass="Ftob\OauthServerApp\Repositories\UserRepository")
+ * @ORM\Table(name="users")
+ */
 class User implements UserEntityInterface, UserInterface
 {
     use EntityTrait;
 
+    /**
+     * @ORM\Column(type="string", length=72)
+     */
     protected $password;
 
+    /**
+     * @ORM\Column(type="string", length=64)
+     */
     protected $salt;
 
+    /**
+     * @ORM\Column(type="string", length=32)
+     */
     protected $username;
+
+    /**
+     * @var Role[]
+     * @ORM\ManyToMany(targetEntity="Role")
+     * @ORM\JoinTable(name="users_roles",
+     *      joinColumns={@ORM\JoinColumn(name="user_identifier", referencedColumnName="identifier")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
+     *      )
+     */
+    protected $roles;
+
+    public function __construct()
+    {
+        $this->roles = new ArrayCollection();
+    }
 
     /**
      * @return mixed

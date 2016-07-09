@@ -2,29 +2,54 @@
 namespace Ftob\OauthServerApp\Repositories;
 
 use Doctrine\ORM\EntityRepository;
+use Ftob\OauthServerApp\Entity\AuthCode;
 use League\OAuth2\Server\Entities\AuthCodeEntityInterface;
 use League\OAuth2\Server\Repositories\AuthCodeRepositoryInterface;
 
+/**
+ * Class AuthCodeRepository
+ * @package Ftob\OauthServerApp\Repositories
+ */
 class AuthCodeRepository extends EntityRepository implements AuthCodeRepositoryInterface
 {
+    /**
+     * @return AuthCodeEntityInterface
+     */
     public function getNewAuthCode()
     {
-        // TODO: Implement getNewAuthCode() method.
+        $entity = $this->getEntityName();
+        return new $entity;
     }
 
+    /**
+     * @param AuthCodeEntityInterface $authCodeEntity
+     * @return AuthCodeEntityInterface
+     */
     public function persistNewAuthCode(AuthCodeEntityInterface $authCodeEntity)
     {
-        // TODO: Implement persistNewAuthCode() method.
+        $this->getEntityManager()->persist($authCodeEntity);
+        $this->getEntityManager()->flush($authCodeEntity);
+
+        return $authCodeEntity;
     }
 
+    /**
+     * @param string $codeId
+     */
     public function revokeAuthCode($codeId)
     {
-        // TODO: Implement revokeAuthCode() method.
+        $authCode = $this->find($codeId);
+
+        $this->getEntityManager()->remove($authCode);
     }
 
+    /**
+     * @param string $codeId
+     * @return bool
+     */
     public function isAuthCodeRevoked($codeId)
     {
-        // TODO: Implement isAuthCodeRevoked() method.
+        return boolval($this->find($codeId));
     }
 
 }

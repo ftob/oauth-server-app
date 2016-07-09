@@ -13,5 +13,5 @@ umask(0000);
 $loader = require __DIR__.'/../vendor/autoload.php';
 
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);
-
+$_SERVER['KERNEL_DIR'] = __DIR__;
 return $loader;

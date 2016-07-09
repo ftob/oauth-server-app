@@ -7,10 +7,10 @@ environments:
     default_database: development
 
     development:
-        adapter: mysql
+        adapter: pgsql
         host: db
         name: oauth
         user: oauth
         pass: 'oauth'
-        port: 3306
+        port: 5432
         charset: utf8
