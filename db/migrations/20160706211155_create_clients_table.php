@@ -7,9 +7,13 @@ class CreateClientsTable extends AbstractMigration
     public function up()
     {
         $clients = $this->table('clients', ['id' => false, ['primary' => ['identifier']]]);
-        $clients->addColumn('name', 'string', ['limit' => 64])
+        $clients->addColumn('identifier', 'string', ['limit' => 100])
+            ->addColumn('name', 'string', ['limit' => 64])
             ->addColumn('redirect_uri', 'string')
             ->save();
+
+        $clients->addIndex('identifier', array('unique' => true))->save();
+
     }
 
     public function down()

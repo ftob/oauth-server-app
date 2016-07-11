@@ -1,7 +1,6 @@
 <?php
 
 $loader->load(__DIR__ . '/security.php');
-$loader->load(__DIR__ . '/services.php');
 $loader->load(__DIR__ . '/parameters.php');
 
 
@@ -19,7 +18,26 @@ $container->loadFromExtension(
         ],
         'session' => [
             'client' => 'default'
+        ],
+        # configure doctrine caching
+        'doctrine' => [
+            'metadata_cache' => [
+                'client' => 'default',
+                'entity_manager' => ['default'],
+                'document_manager' => ['default']
+            ],
+
+            'result_cache' => [
+                'client' =>  'default',
+                'entity_manager' => ['default']
+            ],
+
+            'query_cache' => [
+                'client' =>  'default',
+                'entity_manager' => ['default']
+            ]
         ]
+
     ]
 );
 $container->loadFromExtension(
@@ -55,7 +73,7 @@ $container->loadFromExtension(
             ]
         ],
         'orm'	 => [
-            'auto_generate_proxy_classes'	 => false,
+            'auto_generate_proxy_classes'	 => '%kernel.debug%',
             'naming_strategy'				 => 'doctrine.orm.naming_strategy.underscore',
             'auto_mapping'					 => true,
             # enable metadata caching
@@ -65,3 +83,4 @@ $container->loadFromExtension(
         ]
     ]
 );
+$loader->load(__DIR__ . '/services.php');
