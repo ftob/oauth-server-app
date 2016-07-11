@@ -70,6 +70,10 @@ RUN docker-php-ext-install intl
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer
 
 
+RUN wget http://rocketeer.autopergamene.eu/versions/rocketeer.phar
+RUN chmod +x rocketeer.phar
+RUN mv rocketeer.phar /usr/local/bin/rocketeer
+
 # Include the start script
 COPY start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh

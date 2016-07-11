@@ -2,6 +2,7 @@
 
 $loader->load(__DIR__ . '/security.php');
 $loader->load(__DIR__ . '/parameters.php');
+$loader->load(__DIR__ . '/services.php');
 
 
 /** @var \Symfony\Component\DependencyInjection\ContainerBuilder $container */
@@ -83,4 +84,3 @@ $container->loadFromExtension(
         ]
     ]
 );
-$loader->load(__DIR__ . '/services.php');
