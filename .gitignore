@@ -5,3 +5,5 @@ var/cache/*
 !var/cache/.gitkeep
 var/logs/*
 !var/logs/.gitkeep
+
+environment.yml

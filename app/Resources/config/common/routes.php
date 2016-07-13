@@ -11,6 +11,10 @@ $collection->add('access_token', new Route('/api/v1/auth/access_token', [
     '_controller' => 'AppBundle:AccessToken:index', [], [], '', [], ['GET']
 ]));
 
+$collection->add('roles', new Route('/api/v1/roles/{id}', [
+    '_controller' => 'AppBundle:Roles:index', [], [], '', [], ['GET']
+]));
+
 
 $collection->add('authorize', new Route('/api/v1/auth/authorize', [
     '_controller' => 'AppBundle:Authorize:index',
