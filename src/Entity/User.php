@@ -95,10 +95,12 @@ class User implements UserEntityInterface, UserInterface
     }
 
 
-
+    /**
+     * @return ArrayCollection|Role[]
+     */
     public function getRoles()
     {
-        //
+        return $this->roles;
     }
 
 

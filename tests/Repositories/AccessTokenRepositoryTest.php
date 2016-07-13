@@ -33,6 +33,13 @@ class AccessTokenRepositoryTest extends KernelTestCase
 
     }
 
+    public function tearDown()
+    {
+        /** @var AccessToken $token */
+        $token = $this->getToken();
+        $this->repository->revokeAccessToken($token->getIdentifier());
+    }
+
     /**
      * @param AccessToken $token
      */
